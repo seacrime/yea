@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s;
 }
 
 body {
@@ -11,9 +10,10 @@ body {
   color: var(--text-primary);
   line-height: 1.5;
   scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Темы */
+/* Светлая тема (по умолчанию) */
 :root {
   --bg-primary: #ffffff;
   --bg-secondary: #f8fafc;
@@ -26,6 +26,7 @@ body {
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
+/* Тёмная тема */
 body.dark {
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
@@ -51,6 +52,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(8px);
 }
 
 .nav-bar {
@@ -79,6 +81,7 @@ header {
   text-decoration: none;
   color: var(--text-primary);
   font-weight: 500;
+  transition: color 0.2s;
 }
 
 .nav-links a:hover {
@@ -103,9 +106,15 @@ header {
   align-items: center;
   gap: 8px;
   font-size: 0.9rem;
+  transition: all 0.2s;
 }
 
-/* Sections */
+.toggle-btn:hover {
+  transform: scale(1.02);
+  border-color: var(--accent);
+}
+
+/* Секции */
 section {
   padding: 80px 0;
   border-bottom: 1px solid var(--border);
@@ -164,6 +173,12 @@ section {
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover, .btn-outline:hover {
+  background: var(--accent-hover);
+  transform: scale(0.98);
 }
 
 .btn-outline {
@@ -172,12 +187,12 @@ section {
   color: var(--accent);
 }
 
-.btn-primary:hover, .btn-outline:hover {
-  background: var(--accent-hover);
+.btn-outline:hover {
+  background: var(--accent);
   color: white;
 }
 
-/* Cards */
+/* Карточки */
 .skills-grid, .projects-grid, .education-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -190,6 +205,11 @@ section {
   padding: 1.5rem;
   box-shadow: var(--shadow);
   border: 1px solid var(--border);
+  transition: transform 0.2s;
+}
+
+.skill-card:hover, .project-card:hover, .edu-card:hover {
+  transform: translateY(-4px);
 }
 
 .skill-card i, .project-card i, .edu-card i {
@@ -198,7 +218,14 @@ section {
   margin-bottom: 1rem;
 }
 
-/* Form */
+.project-card a {
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+/* Форма */
 .contact-form {
   background: var(--card-bg);
   border-radius: 24px;
@@ -220,6 +247,12 @@ input, textarea {
   color: var(--text-primary);
   font-family: inherit;
   font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
 textarea {
@@ -243,10 +276,12 @@ button[type="submit"] {
   font-weight: 600;
   cursor: pointer;
   font-size: 1rem;
+  transition: all 0.2s;
 }
 
 button[type="submit"]:hover {
   background: var(--accent-hover);
+  transform: scale(0.98);
 }
 
 .github-link {
@@ -260,20 +295,24 @@ button[type="submit"]:hover {
   text-decoration: none;
 }
 
+.github-link a:hover {
+  text-decoration: underline;
+}
+
 /* 404 */
 .notfound-container {
   text-align: center;
   padding: 100px 20px;
 }
 
-/* Footer */
+/* Футер */
 .footer {
   text-align: center;
   padding: 2rem 0;
   color: var(--text-secondary);
 }
 
-/* Responsive */
+/* Адаптив */
 @media (max-width: 768px) {
   .nav-bar {
     flex-direction: column;
