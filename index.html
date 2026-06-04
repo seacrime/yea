@@ -1,123 +1,330 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Иван Иванов | Резюме</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+// ==================== ПЕРЕВОДЫ ====================
+const translations = {
+  ru: {
+    nav_home: "Главная",
+    nav_about: "О себе",
+    nav_skills: "Навыки",
+    nav_education: "Образование",
+    nav_projects: "Проекты",
+    nav_contact: "Контакты",
+    greeting: "Привет, я",
+    tagline: "Студент",
+    hire_me: "Связаться",
+    about_title: "О себе",
+    about_text1: "Я просто Вовчик",
+    skills_title: "Навыки",
+    edu_title: "Образование",
+    projects_title: "Проекты",
+    contact_title: "Форма обратной связи",
+    proj2: "пока нету",
+    form_name: "Имя *",
+    form_phone: "Телефон * +7XXXXXXXXXX",
+    form_email: "Email *",
+    form_question: "Ваш вопрос *",
+    send_btn: "Отправить",
+    footer: "Все права защищены.",
+    "404text": "Страница не найдена. Вернуться на главную.",
+    name_required: "Введите имя",
+    phone_invalid: "Введите корректный номер телефона (10 цифр, +7 или 8)",
+    email_invalid: "Введите корректный email",
+    question_required: "Введите вопрос",
+    success_msg: "Спасибо! Ваше сообщение отправлено",
+    theme_dark: "Тёмная",
+    theme_light: "Светлая"
+  },
+  en: {
+    nav_home: "Home",
+    nav_about: "About",
+    nav_skills: "Skills",
+    nav_education: "Education",
+    nav_projects: "Projects",
+    nav_contact: "Contact",
+    greeting: "Hi, I'm",
+    tagline: "Student",
+    hire_me: "Contact me",
+    about_title: "About Me",
+    about_text1: "I'm just Vovchik.",
+    skills_title: "Skills",
+    edu_title: "Education",
+    projects_title: "Projects",
+    contact_title: "Contact Form",
+    proj2: "not yet.",
+    form_name: "Full Name *",
+    form_phone: "Phone * +7XXXXXXXXXX",
+    form_email: "Email *",
+    form_question: "Your question *",
+    send_btn: "Submit",
+    footer: "All rights reserved.",
+    "404text": "Page not found. Back to home.",
+    name_required: "Name is required",
+    phone_invalid: "Enter valid phone number (10 digits, +7 or 8)",
+    email_invalid: "Enter valid email",
+    question_required: "Question is required",
+    success_msg: "Thank you! Your message has been sent",
+    theme_dark: "Dark",
+    theme_light: "Light"
+  }
+};
 
-<header>
-  <div class="container">
-    <div class="nav-bar">
-      <div class="logo">IVANOV.DEV</div>
-      <ul class="nav-links">
-        <li><a href="#home" data-i18n="nav_home">Главная</a></li>
-        <li><a href="#about" data-i18n="nav_about">О себе</a></li>
-        <li><a href="#skills" data-i18n="nav_skills">Навыки</a></li>
-        <li><a href="#education" data-i18n="nav_education">Образование</a></li>
-        <li><a href="#projects" data-i18n="nav_projects">Проекты</a></li>
-        <li><a href="#contact" data-i18n="nav_contact">Контакты</a></li>
-      </ul>
-      <div class="controls">
-        <button id="themeToggle" class="toggle-btn"><i class="fas fa-moon"></i> <span id="themeText">Тёмная</span></button>
-        <button id="langToggle" class="toggle-btn"><i class="fas fa-globe"></i> <span id="langText">EN</span></button>
-        <button id="downloadPDF" class="toggle-btn"><i class="fas fa-download"></i> PDF</button>
-      </div>
-    </div>
-  </div>
-</header>
+let currentLang = 'ru';
 
-<main class="container">
-  <section id="home">
-    <div class="hero">
-      <h1><span data-i18n="greeting">Привет, я</span> Иван Иванов</h1>
-      <p class="tagline" data-i18n="tagline">Frontend-разработчик | создаю современные веб-приложения</p>
-      <div class="hero-buttons">
-        <a href="#contact" class="btn-primary" data-i18n="hire_me">Связаться</a>
-        <a href="https://github.com/ivanov" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
-      </div>
-    </div>
-  </section>
+// Функция обновления языка на странице
+function updateLanguage(lang) {
+  currentLang = lang;
+  
+  // Обновляем все элементы с data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = translations[lang][key];
+      } else {
+        el.innerText = translations[lang][key];
+      }
+    }
+  });
+  
+  // Обновляем плейсхолдеры
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+      el.placeholder = translations[lang][key];
+    }
+  });
+  
+  // Обновляем текст кнопки языка
+  const langTextSpan = document.getElementById('langText');
+  if (langTextSpan) {
+    langTextSpan.innerText = lang === 'ru' ? 'EN' : 'RU';
+  }
+  
+  // Обновляем текст кнопки темы
+  updateThemeButtonText();
+}
 
-  <section id="about">
-    <h2 class="section-title" data-i18n="about_title">О себе</h2>
-    <div class="about-card">
-      <p data-i18n="about_text1">Я фронтенд-разработчик с более чем 4-летним опытом создания адаптивных и производительных веб-интерфейсов. Люблю решать сложные задачи и учиться новому.</p>
-      <p style="margin-top: 1rem;" data-i18n="about_text2">Работал над проектами в сфере e-commerce, fintech и edtech. Постоянно совершенствую свои навыки и делюсь опытом с сообществом.</p>
-      <p class="contact-info"><i class="fas fa-map-marker-alt"></i> Москва, РФ | <i class="far fa-envelope"></i> ivan.ivanov@example.com | <i class="fab fa-telegram"></i> @ivan_dev</p>
-    </div>
-  </section>
+// Определение языка браузера
+function getBrowserLang() {
+  const browserLang = navigator.language || navigator.userLanguage;
+  return browserLang.startsWith('ru') ? 'ru' : 'en';
+}
 
-  <section id="skills">
-    <h2 class="section-title" data-i18n="skills_title">Навыки</h2>
-    <div class="skills-grid">
-      <div class="skill-card"><i class="fab fa-react"></i><h3>React / Next.js</h3><p>SPA, SSR, хуки, контекст, Redux Toolkit</p></div>
-      <div class="skill-card"><i class="fab fa-js"></i><h3>JavaScript / TypeScript</h3><p>ES6+, типизация, async/await, DOM API</p></div>
-      <div class="skill-card"><i class="fab fa-css3-alt"></i><h3>CSS / Tailwind</h3><p>Flex/Grid, адаптив, анимации, препроцессоры</p></div>
-      <div class="skill-card"><i class="fab fa-git-alt"></i><h3>Git & GitHub</h3><p>feature branches, PR, CI/CD понимание</p></div>
-    </div>
-  </section>
+// ==================== ТЕМА ====================
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    document.body.classList.add('dark');
+  } else {
+    document.body.classList.remove('dark');
+  }
+  localStorage.setItem('theme', theme);
+  updateThemeButtonText();
+}
 
-  <section id="education">
-    <h2 class="section-title" data-i18n="edu_title">Образование</h2>
-    <div class="education-grid">
-      <div class="edu-card"><i class="fas fa-graduation-cap"></i><h3>МГТУ им. Баумана</h3><p>Информатика и вычислительная техника, магистр (2018-2023)</p><small>Красный диплом, специализация: веб-технологии</small></div>
-      <div class="edu-card"><i class="fas fa-certificate"></i><h3>Профессиональные курсы</h3><p>HTML Academy: Профессиональный React, Яндекс Практикум: Веб-разработчик</p></div>
-    </div>
-  </section>
+function updateThemeButtonText() {
+  const themeTextSpan = document.getElementById('themeText');
+  if (themeTextSpan) {
+    const isDark = document.body.classList.contains('dark');
+    themeTextSpan.innerText = isDark 
+      ? (currentLang === 'ru' ? 'Тёмная' : 'Dark')
+      : (currentLang === 'ru' ? 'Светлая' : 'Light');
+  }
+}
 
-  <section id="projects">
-    <h2 class="section-title" data-i18n="projects_title">Проекты</h2>
-    <div class="projects-grid">
-      <div class="project-card"><i class="fas fa-cloud-sun"></i><h3>Weather App</h3><p data-i18n="proj1">Приложение погоды с OpenWeather API, геолокацией, переключением тем.</p><a href="#">github.com/ivanov/weather →</a></div>
-      <div class="project-card"><i class="fas fa-tasks"></i><h3>Task Manager</h3><p data-i18n="proj2">Управление задачами с аутентификацией и localStorage, drag-and-drop.</p><a href="#">github.com/ivanov/tasks →</a></div>
-      <div class="project-card"><i class="fas fa-shopping-cart"></i><h3>Marketplace frontend</h3><p data-i18n="proj3">Каталог товаров, корзина, фильтрация, адаптив под мобильные.</p><a href="#">github.com/ivanov/market →</a></div>
-    </div>
-  </section>
+function getSystemTheme() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
 
-  <section id="contact">
-    <h2 class="section-title" data-i18n="contact_title">Форма обратной связи</h2>
-    <div class="contact-form">
-      <form id="feedbackForm">
-        <div class="form-group">
-          <input type="text" id="name" placeholder="Имя *" data-i18n-placeholder="form_name">
-          <span class="error-msg" id="nameError"></span>
-        </div>
-        <div class="form-group">
-          <input type="tel" id="phone" placeholder="Телефон * +7XXXXXXXXXX" data-i18n-placeholder="form_phone">
-          <span class="error-msg" id="phoneError"></span>
-        </div>
-        <div class="form-group">
-          <input type="email" id="email" placeholder="Email *" data-i18n-placeholder="form_email">
-          <span class="error-msg" id="emailError"></span>
-        </div>
-        <div class="form-group">
-          <textarea id="question" placeholder="Ваш вопрос *" data-i18n-placeholder="form_question"></textarea>
-          <span class="error-msg" id="questionError"></span>
-        </div>
-        <button type="submit" id="submitBtn" data-i18n="send_btn">Отправить</button>
-        <p id="formStatus"></p>
-      </form>
-    </div>
-    <div class="github-link">
-      <a href="https://github.com/ivanov" target="_blank"><i class="fab fa-github"></i> github.com/ivanov</a>
-    </div>
-  </section>
-</main>
+function initTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    applyTheme(savedTheme);
+  } else {
+    applyTheme(getSystemTheme());
+  }
+}
 
-<div id="notFoundPage" style="display: none;" class="container notfound-container">
-  <h1>404</h1>
-  <p data-i18n="404text">Страница не найдена. Вернуться на <a href="#" id="backHome">главную</a>.</p>
-</div>
+// ==================== PDF СКАЧИВАНИЕ ====================
+function downloadPDF() {
+  // Создаем временный элемент для печати только нужного контента
+  const originalTitle = document.title;
+  document.title = "Shelekasov_Vladimir_Resume";
+  
+  // Добавляем стили для печати
+  const printStyles = document.createElement('style');
+  printStyles.textContent = `
+    @media print {
+      body {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+      .controls, .nav-links, .hero-buttons, .github-link, .contact-form button,
+      #themeToggle, #langToggle, #downloadPDF, footer .toggle-btn, header .controls {
+        display: none !important;
+      }
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+      section {
+        page-break-inside: avoid;
+        padding: 20px 0;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      .skill-card, .project-card, .edu-card, .about-card {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+      }
+    }
+  `;
+  document.head.appendChild(printStyles);
+  
+  // Вызываем печать
+  window.print();
+  
+  // Удаляем временные стили
+  setTimeout(() => {
+    document.head.removeChild(printStyles);
+    document.title = originalTitle;
+  }, 100);
+}
 
-<footer class="footer container">
-  <p>© 2025 Иван Иванов. <span data-i18n="footer">Все права защищены.</span></p>
-</footer>
+// ==================== ВАЛИДАЦИЯ ФОРМЫ ====================
+function validatePhone(phone) {
+  const digits = phone.replace(/\D/g, '');
+  return digits.length === 11 && (digits.startsWith('7') || digits.startsWith('8')) || digits.length === 10;
+}
 
-<script src="js/main.js"></script>
-</body>
-</html>
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
+  return emailRegex.test(email);
+}
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+  
+  // Очищаем предыдущие ошибки
+  document.querySelectorAll('.error-msg').forEach(el => el.innerText = '');
+  
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const question = document.getElementById('question').value.trim();
+  const statusMsg = document.getElementById('formStatus');
+  
+  let isValid = true;
+  
+  if (!name) {
+    document.getElementById('nameError').innerText = translations[currentLang].name_required;
+    isValid = false;
+  }
+  
+  if (!validatePhone(phone)) {
+    document.getElementById('phoneError').innerText = translations[currentLang].phone_invalid;
+    isValid = false;
+  }
+  
+  if (!validateEmail(email)) {
+    document.getElementById('emailError').innerText = translations[currentLang].email_invalid;
+    isValid = false;
+  }
+  
+  if (!question) {
+    document.getElementById('questionError').innerText = translations[currentLang].question_required;
+    isValid = false;
+  }
+  
+  if (isValid) {
+    // Логируем данные в консоль (имитация отправки)
+    console.log('📝 Форма отправлена:', { name, phone, email, question });
+    
+    // Показываем сообщение об успехе
+    statusMsg.innerText = translations[currentLang].success_msg;
+    statusMsg.style.color = '#22c55e';
+    
+    // Очищаем форму
+    document.getElementById('feedbackForm').reset();
+    
+    // Скрываем сообщение через 3 секунды
+    setTimeout(() => {
+      statusMsg.innerText = '';
+    }, 3000);
+  }
+}
+
+// ==================== 404 ОБРАБОТЧИК ====================
+function handleRouting() {
+  const hash = window.location.hash.substring(1);
+  const validSections = ['home', 'about', 'skills', 'education', 'projects', 'contact', ''];
+  const notFoundDiv = document.getElementById('notFoundPage');
+  const mainSections = document.querySelectorAll('main section');
+  
+  if (hash && !validSections.includes(hash)) {
+    mainSections.forEach(sec => sec.style.display = 'none');
+    notFoundDiv.style.display = 'block';
+  } else {
+    mainSections.forEach(sec => sec.style.display = '');
+    notFoundDiv.style.display = 'none';
+    if (hash) {
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }
+}
+
+// ==================== ИНИЦИАЛИЗАЦИЯ ====================
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Инициализация языка (по умолчанию язык браузера)
+  currentLang = getBrowserLang();
+  updateLanguage(currentLang);
+  
+  // 2. Инициализация темы (по умолчанию тема браузера)
+  initTheme();
+  
+  // 3. Кнопка переключения темы
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+      applyTheme(newTheme);
+    });
+  }
+  
+  // 4. Кнопка переключения языка
+  const langToggle = document.getElementById('langToggle');
+  if (langToggle) {
+    langToggle.addEventListener('click', () => {
+      const newLang = currentLang === 'ru' ? 'en' : 'ru';
+      updateLanguage(newLang);
+    });
+  }
+  
+  // 5. Кнопка скачивания PDF
+  const pdfBtn = document.getElementById('downloadPDF');
+  if (pdfBtn) {
+    pdfBtn.addEventListener('click', downloadPDF);
+  }
+  
+  // 6. Обработчик формы
+  const form = document.getElementById('feedbackForm');
+  if (form) {
+    form.addEventListener('submit', handleFormSubmit);
+  }
+  
+  // 7. Роутинг для 404
+  window.addEventListener('hashchange', handleRouting);
+  handleRouting();
+  
+  // 8. Кнопка "на главную" на странице 404
+  const backHome = document.getElementById('backHome');
+  if (backHome) {
+    backHome.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.hash = 'home';
+      handleRouting();
+    });
+  }
+});
