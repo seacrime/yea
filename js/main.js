@@ -257,20 +257,20 @@ function handleFormSubmit(e) {
 function handleRouting() {
   const hash = window.location.hash.substring(1);
   const validSections = ['home', 'about', 'skills', 'education', 'projects', 'contact', ''];
+  const mainContent = document.getElementById('mainContent');
   const notFoundDiv = document.getElementById('notFoundPage');
-  const mainSections = document.querySelectorAll('main section');
   
   if (hash && !validSections.includes(hash)) {
-    mainSections.forEach(sec => sec.style.display = 'none');
+    mainContent.style.display = 'none';
     notFoundDiv.style.display = 'block';
+    document.querySelector('footer').style.display = 'none';
   } else {
-    mainSections.forEach(sec => sec.style.display = '');
+    mainContent.style.display = 'block';
     notFoundDiv.style.display = 'none';
+    document.querySelector('footer').style.display = 'block';
     if (hash) {
       const element = document.getElementById(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
   }
 }
