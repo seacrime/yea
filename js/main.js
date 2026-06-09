@@ -11,7 +11,7 @@ const translations = {
     tagline: "Студент",
     hire_me: "Связаться",
     about_title: "О себе",
-    about_text1: "Я просто Вовчик",
+    about_text1: "Я просто Вовчик, увлекаюсь веб-разработкой и технологиями. Постоянно учусь новому и совершенствую свои навыки.",
     skills_title: "Навыки",
     edu_title: "Образование",
     projects_title: "Проекты",
@@ -22,8 +22,8 @@ const translations = {
     form_email: "Email *",
     form_question: "Ваш вопрос *",
     send_btn: "Отправить",
-    footer: "Все права защищены.",
-    "404text": "Страница не найдена. Вернуться на главную.",
+    footer: "© 2025 Владимир Шелекасов. Все права защищены.",
+    "404text": "Страница не найдена",
     name_required: "Введите имя",
     phone_invalid: "Введите корректный номер телефона (10 цифр, +7 или 8)",
     email_invalid: "Введите корректный email",
@@ -43,19 +43,19 @@ const translations = {
     tagline: "Student",
     hire_me: "Contact me",
     about_title: "About Me",
-    about_text1: "I'm just Vovchik.",
+    about_text1: "I'm just Vovchik, passionate about web development and technology. Always learning new things.",
     skills_title: "Skills",
     edu_title: "Education",
     projects_title: "Projects",
     contact_title: "Contact Form",
-    proj2: "not yet.",
+    proj2: "not yet",
     form_name: "Full Name *",
     form_phone: "Phone * +7XXXXXXXXXX",
     form_email: "Email *",
     form_question: "Your question *",
     send_btn: "Submit",
-    footer: "All rights reserved.",
-    "404text": "Page not found. Back to home.",
+    footer: "© 2025 Vladimir Shelekasov. All rights reserved.",
+    "404text": "Page not found",
     name_required: "Name is required",
     phone_invalid: "Enter valid phone number (10 digits, +7 or 8)",
     email_invalid: "Enter valid email",
@@ -68,41 +68,29 @@ const translations = {
 
 let currentLang = 'ru';
 
-// Функция обновления языка на странице
 function updateLanguage(lang) {
   currentLang = lang;
   
-  // Обновляем все элементы с data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (translations[lang][key]) {
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.placeholder = translations[lang][key];
-      } else {
-        el.innerText = translations[lang][key];
-      }
+      el.innerText = translations[lang][key];
     }
   });
   
-  // Обновляем плейсхолдеры
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
-        if (translations[lang][key]) {
+    if (translations[lang][key]) {
       el.placeholder = translations[lang][key];
     }
   });
   
-  // Обновляем текст кнопки языка
   const langTextSpan = document.getElementById('langText');
-  if (langTextSpan) {
-    langTextSpan.innerText = lang === 'ru' ? 'EN' : 'RU';
-  }
+  if (langTextSpan) langTextSpan.innerText = lang === 'ru' ? 'EN' : 'RU';
   
-  // Обновляем текст кнопки темы
   updateThemeButtonText();
 }
 
-// Определение языка браузера
 function getBrowserLang() {
   const browserLang = navigator.language || navigator.userLanguage;
   return browserLang.startsWith('ru') ? 'ru' : 'en';
@@ -135,76 +123,48 @@ function getSystemTheme() {
 
 function initTheme() {
   const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    applyTheme(savedTheme);
-  } else {
-    applyTheme(getSystemTheme());
-  }
+  applyTheme(savedTheme || getSystemTheme());
 }
 
-// ==================== PDF СКАЧИВАНИЕ ====================
+// ==================== PDF ====================
 function downloadPDF() {
-  // Создаем временный элемент для печати только нужного контента
   const originalTitle = document.title;
   document.title = "Shelekasov_Vladimir_Resume";
   
-  // Добавляем стили для печати
   const printStyles = document.createElement('style');
   printStyles.textContent = `
     @media print {
-      body {
-        print-color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-      }
+      body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
       .controls, .nav-links, .hero-buttons, .github-link, .contact-form button,
-      #themeToggle, #langToggle, #downloadPDF, footer .toggle-btn, header .controls {
+      #themeToggle, #langToggle, #downloadPDF, footer .toggle-btn, header .controls, #downloadPDF2 {
         display: none !important;
       }
-      .container {
-        max-width: 100%;
-        padding: 0;
-      }
-      section {
-        page-break-inside: avoid;
-        padding: 20px 0;
-      }
-      a {
-        text-decoration: none;
-        color: black;
-      }
-      .skill-card, .project-card, .edu-card, .about-card {
-        break-inside: avoid;
-        border: 1px solid #ccc;
-      }
+      .container { max-width: 100%; padding: 0; }
+      section { page-break-inside: avoid; padding: 20px 0; }
+      a { text-decoration: none; color: black; }
+      .skill-card, .project-card, .edu-card, .about-card { break-inside: avoid; border: 1px solid #ccc; }
     }
   `;
   document.head.appendChild(printStyles);
-  
-  // Вызываем печать
   window.print();
-  
-  // Удаляем временные стили
   setTimeout(() => {
     document.head.removeChild(printStyles);
     document.title = originalTitle;
   }, 100);
 }
 
-// ==================== ВАЛИДАЦИЯ ФОРМЫ ====================
+// ==================== ВАЛИДАЦИЯ ====================
 function validatePhone(phone) {
   const digits = phone.replace(/\D/g, '');
-  return digits.length === 11 && (digits.startsWith('7') || digits.startsWith('8')) || digits.length === 10;
+  return (digits.length === 11 && (digits.startsWith('7') || digits.startsWith('8'))) || digits.length === 10;
 }
 
 function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
-  return emailRegex.test(email);
+  return /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/.test(email);
 }
 
 function handleFormSubmit(e) {
   e.preventDefault();
-  
-  // Очищаем предыдущие ошибки
   document.querySelectorAll('.error-msg').forEach(el => el.innerText = '');
   
   const name = document.getElementById('name').value.trim();
@@ -212,48 +172,35 @@ function handleFormSubmit(e) {
   const email = document.getElementById('email').value.trim();
   const question = document.getElementById('question').value.trim();
   const statusMsg = document.getElementById('formStatus');
-  
   let isValid = true;
   
   if (!name) {
     document.getElementById('nameError').innerText = translations[currentLang].name_required;
     isValid = false;
   }
-  
   if (!validatePhone(phone)) {
     document.getElementById('phoneError').innerText = translations[currentLang].phone_invalid;
     isValid = false;
   }
-  
   if (!validateEmail(email)) {
     document.getElementById('emailError').innerText = translations[currentLang].email_invalid;
     isValid = false;
   }
-  
   if (!question) {
     document.getElementById('questionError').innerText = translations[currentLang].question_required;
     isValid = false;
   }
   
   if (isValid) {
-    // Логируем данные в консоль (имитация отправки)
     console.log('📝 Форма отправлена:', { name, phone, email, question });
-    
-    // Показываем сообщение об успехе
     statusMsg.innerText = translations[currentLang].success_msg;
     statusMsg.style.color = '#22c55e';
-    
-    // Очищаем форму
     document.getElementById('feedbackForm').reset();
-    
-    // Скрываем сообщение через 3 секунды
-    setTimeout(() => {
-      statusMsg.innerText = '';
-    }, 3000);
+    setTimeout(() => { statusMsg.innerText = ''; }, 3000);
   }
 }
 
-// ==================== 404 ОБРАБОТЧИК ====================
+// ==================== РОУТИНГ 404 ====================
 function handleRouting() {
   const hash = window.location.hash.substring(1);
   const validSections = ['home', 'about', 'skills', 'education', 'projects', 'contact', ''];
@@ -277,14 +224,10 @@ function handleRouting() {
 
 // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Инициализация языка (по умолчанию язык браузера)
   currentLang = getBrowserLang();
   updateLanguage(currentLang);
-  
-  // 2. Инициализация темы (по умолчанию тема браузера)
   initTheme();
   
-  // 3. Кнопка переключения темы
   const themeToggle = document.getElementById('themeToggle');
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
@@ -293,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // 4. Кнопка переключения языка
   const langToggle = document.getElementById('langToggle');
   if (langToggle) {
     langToggle.addEventListener('click', () => {
@@ -302,23 +244,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // 5. Кнопка скачивания PDF
-  const pdfBtn = document.getElementById('downloadPDF');
-  if (pdfBtn) {
-    pdfBtn.addEventListener('click', downloadPDF);
-  }
+  const pdfBtns = [document.getElementById('downloadPDF'), document.getElementById('downloadPDF2')];
+  pdfBtns.forEach(btn => {
+    if (btn) btn.addEventListener('click', downloadPDF);
+  });
   
-  // 6. Обработчик формы
   const form = document.getElementById('feedbackForm');
-  if (form) {
-    form.addEventListener('submit', handleFormSubmit);
-  }
+  if (form) form.addEventListener('submit', handleFormSubmit);
   
-  // 7. Роутинг для 404
   window.addEventListener('hashchange', handleRouting);
   handleRouting();
   
-  // 8. Кнопка "на главную" на странице 404
   const backHome = document.getElementById('backHome');
   if (backHome) {
     backHome.addEventListener('click', (e) => {

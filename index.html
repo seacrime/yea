@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Владимир Шелекасов | Резюме</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <title>Владимир Шелекасов | Портфолио</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
 <header>
   <div class="container">
     <div class="nav-bar">
-      <div class="logo">SHELEKASOV.DEV</div>
+      <div class="logo">V.Shelekasov</div>
       <ul class="nav-links">
         <li><a href="#home" data-i18n="nav_home">Главная</a></li>
         <li><a href="#about" data-i18n="nav_about">О себе</a></li>
@@ -23,99 +23,117 @@
         <li><a href="#contact" data-i18n="nav_contact">Контакты</a></li>
       </ul>
       <div class="controls">
-        <button id="themeToggle" class="toggle-btn"><i class="fas fa-moon"></i> <span id="themeText">Тёмная</span></button>
+        <button id="downloadPDF" class="toggle-btn" title="Скачать PDF"><i class="fas fa-download"></i> PDF</button>
         <button id="langToggle" class="toggle-btn"><i class="fas fa-globe"></i> <span id="langText">EN</span></button>
-        <button id="downloadPDF" class="toggle-btn"><i class="fas fa-download"></i> PDF</button>
+        <button id="themeToggle" class="toggle-btn"><i class="fas fa-moon"></i> <span id="themeText">Тёмная</span></button>
       </div>
     </div>
   </div>
 </header>
 
-<main class="container">
-  <!-- Главная секция -->
-  <section id="home">
-    <div class="hero">
-      <h1><span data-i18n="greeting">Привет, я</span> Владимир Шелекасов</h1>
-      <p class="tagline" data-i18n="tagline">Студент</p>
-      <div class="hero-buttons">
-        <a href="#contact" class="btn-primary" data-i18n="hire_me">Связаться</a>
-        <a href="https://github.com/seacrime" target="_blank" class="btn-outline"><i class="fab fa-github"></i> GitHub</a>
+<main>
+  <div id="mainContent">
+    <section id="home" class="hero">
+      <div class="container">
+        <h1><span data-i18n="greeting">Привет, я</span> Владимир</h1>
+        <p class="tagline" data-i18n="tagline">Студент</p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn-primary" data-i18n="hire_me">Связаться</a>
+          <button id="downloadPDF2" class="btn-outline">📄 PDF</button>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- О себе -->
-  <section id="about">
-    <h2 class="section-title" data-i18n="about_title">О себе</h2>
-    <div class="about-card">
-      <p data-i18n="about_text1">Я просто Вовчик</p>
-      <p class="contact-info"><i class="fas fa-map-marker-alt"></i> Якутск Сити | <i class="far fa-envelope"></i> shelegasov@mail.ru | <i class="fab fa-telegram"></i> @eseacrime</p>
-    </div>
-  </section>
-
-  <!-- Навыки -->
-  <section id="skills">
-    <h2 class="section-title" data-i18n="skills_title">Навыки</h2>
-    <div class="skills-grid">
-      <div class="skill-card"><i class="fab fa-js"></i><h3>С++</h3><p>чуть-чуть</p></div>
-    </div>
-  </section>
-
-  <!-- Образование -->
-  <section id="education">
-    <h2 class="section-title" data-i18n="edu_title">Образование</h2>
-    <div class="education-grid">
-      <div class="edu-card"><i class="fas fa-graduation-cap"></i><h3>КИТ</h3><p>Программист</p><small>не закончил</small></div>
-    </div>
-  </section>
-
-  <!-- Проекты -->
-  <section id="projects">
-    <h2 class="section-title" data-i18n="projects_title">Проекты</h2>
-    <div class="projects-grid">
-      <div class="project-card"><i class="fas fa-tasks"></i><h3>пока нету</h3><p data-i18n="proj2">пока нету</p><a href="#"></a></div>
-    </div>
-  </section>
-
-  <!-- Форма обратной связи -->
-  <section id="contact">
-    <h2 class="section-title" data-i18n="contact_title">Форма обратной связи</h2>
-    <div class="contact-form">
-      <form id="feedbackForm">
-        <div class="form-group">
-          <input type="text" id="name" placeholder="Имя *" data-i18n-placeholder="form_name">
-          <span class="error-msg" id="nameError"></span>
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title" data-i18n="about_title">О себе</h2>
+        <div class="about-card">
+          <p data-i18n="about_text1">Я просто Вовчик, увлекаюсь веб-разработкой и технологиями. Постоянно учусь новому и совершенствую свои навыки.</p>
         </div>
-        <div class="form-group">
-          <input type="tel" id="phone" placeholder="Телефон * +7XXXXXXXXXX" data-i18n-placeholder="form_phone">
-          <span class="error-msg" id="phoneError"></span>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title" data-i18n="skills_title">Навыки</h2>
+        <div class="skills-grid">
+          <div class="skill-card"><i class="fab fa-html5"></i><h3>HTML5/CSS3</h3><p>Семантическая верстка, Flex/Grid, адаптив</p></div>
+          <div class="skill-card"><i class="fab fa-js"></i><h3>JavaScript</h3><p>ES6+, DOM, асинхронность, Fetch API</p></div>
+          <div class="skill-card"><i class="fab fa-react"></i><h3>React</h3><p>Компоненты, хуки, роутинг, состояние</p></div>
+          <div class="skill-card"><i class="fab fa-python"></i><h3>Python</h3><p>Основы, автоматизация, скрипты</p></div>
+          <div class="skill-card"><i class="fas fa-database"></i><h3>Базы данных</h3><p>SQL, PostgreSQL, работа с запросами</p></div>
+          <div class="skill-card"><i class="fab fa-git-alt"></i><h3>Git</h3><p>Контроль версий, GitHub, совместная работа</p></div>
         </div>
-        <div class="form-group">
-          <input type="email" id="email" placeholder="Email *" data-i18n-placeholder="form_email">
-          <span class="error-msg" id="emailError"></span>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container">
+        <h2 class="section-title" data-i18n="edu_title">Образование</h2>
+        <div class="education-grid">
+          <div class="edu-card"><i class="fas fa-graduation-cap"></i><h3>СПБГУТ</h3><p>Информатика и вычислительная техника, 2024–2028</p></div>
+          <div class="edu-card"><i class="fas fa-code"></i><h3>Онлайн курсы</h3><p>Веб-разработка, алгоритмы и структуры данных</p></div>
         </div>
-        <div class="form-group">
-          <textarea id="question" placeholder="Ваш вопрос *" data-i18n-placeholder="form_question"></textarea>
-          <span class="error-msg" id="questionError"></span>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title" data-i18n="projects_title">Проекты</h2>
+        <div class="projects-grid">
+          <div class="project-card"><i class="fas fa-globe"></i><h3>Портфолио сайт</h3><p>Многоязычный сайт-визитка с переключением тем</p><a href="#">Подробнее →</a></div>
+          <div class="project-card"><i class="fas fa-cloud-sun"></i><h3>Weather App</h3><p>Приложение погоды с OpenWeather API</p><a href="#">Подробнее →</a></div>
+          <div class="project-card"><i class="fas fa-tasks"></i><h3>Todo List</h3><p data-i18n="proj2">пока нету</p><a href="#">Скоро</a></div>
         </div>
-        <button type="submit" id="submitBtn" data-i18n="send_btn">Отправить</button>
-        <p id="formStatus"></p>
-      </form>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title" data-i18n="contact_title">Форма обратной связи</h2>
+        <div class="contact-form">
+          <form id="feedbackForm">
+            <div class="form-group">
+              <input type="text" id="name" data-i18n-placeholder="form_name" placeholder="Имя *">
+              <span class="error-msg" id="nameError"></span>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="phone" data-i18n-placeholder="form_phone" placeholder="Телефон * +7XXXXXXXXXX">
+              <span class="error-msg" id="phoneError"></span>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" data-i18n-placeholder="form_email" placeholder="Email *">
+              <span class="error-msg" id="emailError"></span>
+            </div>
+            <div class="form-group">
+              <textarea id="question" data-i18n-placeholder="form_question" placeholder="Ваш вопрос *"></textarea>
+              <span class="error-msg" id="questionError"></span>
+            </div>
+            <button type="submit" data-i18n="send_btn">Отправить</button>
+            <div id="formStatus" style="margin-top: 1rem;"></div>
+          </form>
+          <div class="github-link">
+            <a href="https://github.com/VladimirShelekasov" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="notFoundPage" class="notfound-page">
+    <div class="container">
+      <h1>404</h1>
+      <h2 data-i18n="404text">Страница не найдена</h2>
+      <p>Извините, такой страницы не существует.</p>
+      <a href="#home" id="backHome" class="btn-primary">← Вернуться на главную</a>
     </div>
-    <div class="github-link">
-      <a href="https://github.com/seacrime" target="_blank"><i class="fab fa-github"></i> github.com/seacrime</a>
-    </div>
-  </section>
+  </div>
 </main>
 
-<!-- Страница 404 -->
-<div id="notFoundPage" style="display: none;" class="container notfound-container">
-  <h1>404</h1>
-  <p data-i18n="404text">Страница не найдена. Вернуться на <a href="#" id="backHome">главную</a>.</p>
-</div>
-
-<footer class="footer container">
-  <p>© 2026 Владимир Шелекасов. <span data-i18n="footer">Все права защищены.</span></p>
+<footer class="footer">
+  <div class="container">
+    <p data-i18n="footer">© 2025 Владимир Шелекасов. Все права защищены.</p>
+  </div>
 </footer>
 
 <script src="js/main.js"></script>
